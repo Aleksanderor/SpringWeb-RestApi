@@ -18,12 +18,15 @@ import java.util.Optional;
 public class TrelloClient {
 
     private final RestTemplate restTemplate;
+
     @Value("${trello.api.endpoint.prod}")
     private String trelloApiEndpoint;
     @Value("${trello.app.key}")
     private String trelloAppKey;
     @Value("${trello.app.token}")
     private String trelloToken;
+    @Value("${trello.username}")
+    private String trelloUsername;
 
     public List<TrelloBoardDto> getTrelloBoards() {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/kodillaautor/boards")
@@ -39,5 +42,17 @@ public class TrelloClient {
         return Optional.ofNullable(boardsResponse)
                 .map(Arrays::asList)
                 .orElse(Collections.emptyList());
+    }
+
+    private URI buildUrl() {
+        String apiUrl = String.format("%s/members/%s/boards", trelloApiEndpoint, trelloUsername);
+
+        return UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .queryParam("key", trelloAppKey)
+                .queryParam("token", trelloToken)
+                .queryParam("fields", "name,id")
+                .build()
+                .encode()
+                .toUri();
     }
 }
