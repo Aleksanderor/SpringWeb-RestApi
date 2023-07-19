@@ -2,22 +2,18 @@ package com.crud.tasks.config;
 
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
-@Setter
 public class TrelloConfig {
-
     @Value("${trello.api.endpoint.prod}")
-    private String trelloApiEndpoint;
+    String trelloApiEndpoint;
     @Value("${trello.app.key}")
-    private String trelloAppKey;
+    String trelloAppKey;
     @Value("${trello.app.token}")
-    private String trelloToken;
-    @Value("${trello.app.user}")
-    private String trelloUser;
+    String trelloAppToken;
+    @Value("${trello.username}")
+    String trelloAppUsername;
 }
-
