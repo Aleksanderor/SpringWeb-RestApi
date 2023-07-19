@@ -37,23 +37,22 @@ class TrelloClientTest {
         // Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("https://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
-        when(trelloConfig.getTrelloUser()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppUsername()).thenReturn("test");
 
-        TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-        trelloBoards[0] = new TrelloBoardDto("test_id", "Kodilla", new ArrayList<>());
+        List<TrelloBoardDto> trelloBoards = new ArrayList<>();
+        trelloBoards.add(new TrelloBoardDto("test_id", "Kodilla", new ArrayList<>()));
 
         URI uri = new URI("https://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
-        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards.toArray(new TrelloBoardDto[0]));
         // When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
         // Then
         assertEquals(1, fetchedTrelloBoards.size());
-        assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
-        assertEquals("Kodilla", fetchedTrelloBoards.get(0).getName());
+        assertEquals("test_id", fetchedTrelloBoards.get(0).getName());
+        assertEquals("Kodilla", fetchedTrelloBoards.get(0).getId());
         assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
-
     }
 
     @Test
@@ -61,7 +60,7 @@ class TrelloClientTest {
         // Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("https://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                 "Test task",
                 "Test Description",
@@ -91,8 +90,8 @@ class TrelloClientTest {
         //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("https://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
-        when(trelloConfig.getTrelloUser()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppUsername()).thenReturn("test");
         URI url = new URI("https://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
         when(restTemplate.getForObject(url,TrelloBoardDto[].class)).thenReturn(null);
 
