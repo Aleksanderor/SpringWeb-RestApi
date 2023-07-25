@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Getter
 public class TrelloConfig {
     @Value("${trello.api.endpoint.prod}")
-    String trelloApiEndpoint;
+    private String trelloApiEndpoint;
     @Value("${trello.app.key}")
-    String trelloAppKey;
+    private String trelloAppKey;
     @Value("${trello.app.token}")
-    String trelloAppToken;
-    @Value("${trello.username}")
-    String trelloAppUsername;
+    private String trelloToken;
+    @Value("${trello.app.user}")
+    private String trelloUser;
 }
