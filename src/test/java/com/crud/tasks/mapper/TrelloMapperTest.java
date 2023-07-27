@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TrelloMapperTest {
 
-    @InjectMocks
     private TrelloMapper trelloMapper;
 
     @BeforeEach
