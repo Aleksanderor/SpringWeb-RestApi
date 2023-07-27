@@ -41,7 +41,7 @@ class TrelloClientTest {
         when(trelloConfig.getTrelloUser()).thenReturn("test");
 
         List<TrelloBoardDto> trelloBoards = new ArrayList<>();
-        trelloBoards.add(new TrelloBoardDto("test_id", "Kodilla", new ArrayList<>()));
+        trelloBoards.add(new TrelloBoardDto("Kodilla", "test_id", new ArrayList<>()));
 
         URI uri = new URI("https://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
@@ -50,13 +50,14 @@ class TrelloClientTest {
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
         // Then
         assertEquals(1, fetchedTrelloBoards.size());
-        assertEquals("test_id", fetchedTrelloBoards.get(0).getName());
-        assertEquals("Kodilla", fetchedTrelloBoards.get(0).getId());
+        assertEquals("Kodilla", fetchedTrelloBoards.get(0).getName());
+        assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
         assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
     }
 
     @Test
     public void shouldCreateCard() throws URISyntaxException {
+
         // Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("https://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
