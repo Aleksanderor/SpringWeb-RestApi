@@ -1,6 +1,7 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -139,6 +140,5 @@ class TrelloMapperTest {
         assertEquals(trelloBoardDtoList.get(1).getName(), trelloBoardList.get(1).getName());
         assertEquals(trelloBoardDtoList.get(1).getLists().size(), trelloBoardList.get(1).getLists().size());
     }
-
 
 }
