@@ -58,7 +58,31 @@ class TaskControllerTest {
     }
 
     @Test
-    void shouldGetTasks() throws Exception{
+    public void shouldGetTasksListTest() throws Exception {
+        List<Task> tasks = List.of(
+                new Task(1L, "Title", "Content"),
+                new Task(2L, "Title 2", "Content 2")
+        );
+        List<TaskDto> tasksDto = List.of(
+                new TaskDto(1L, "title", "content"),
+                new TaskDto(2L, "title 2", "content 2")
+        );
+
+        when(service.getAllTasks()).thenReturn(tasks);
+        when(taskMapper.mapToTaskDtoList(tasks)).thenReturn(tasksDto);
+
+        //When & Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/v1/tasks")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", Matchers.is("title")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Matchers.is(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].title", Matchers.is("title 2")));
+    }
+    @Test
+    void shouldGetEmptyTasksList() throws Exception{
 
         //Given
         List<Task> tasks = new ArrayList<>();
